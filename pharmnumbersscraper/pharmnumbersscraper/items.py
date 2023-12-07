@@ -6,7 +6,9 @@
 import scrapy
 
 
-class PharmnumbersscraperItem(scrapy.Item):
+class HealthProductItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    pzn = scrapy.Field()
+    price = scrapy.Field()
+    # Add more fields as needed
