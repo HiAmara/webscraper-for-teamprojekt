@@ -37,3 +37,9 @@ class PznscraperSpider(scrapy.Spider):
 
         # Return the PZN value
         yield {'pzn': pzn_value.strip() if pzn_value else None}
+
+
+    ##functions i need
+    # puts pzn into search bar and clicks on search
+    # css path or xpath to price
+    # add price to excel file
