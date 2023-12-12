@@ -10,36 +10,34 @@ class PznscraperSpider(scrapy.Spider):
     allowed_domains = ["www.dkv.com"]
     start_urls = ["http://www.dkv.com/"]
 
-    # will contain all the data we want to scrape
+    #path to excel file which contains the pzn numbers
+    excel_path = "C://Users//jinji//Desktop//Data Science//Programming Projects//webscrapy//data files//testdata_pzn.xlsx"
+    df = pd.read_excel(excel_path)
+    numbers = df['PZN'].tolist()
+
+
+
+    def start_requests(self):
+        # Iterate through numbers and create requests
+        for number in self.numbers:
+            yield scrapy.Request(url=f'https://www.dkv.com/gesundheit-arzneimittel-preis-vergleich.html?start=1&init=1&cat=pzn&q={quote(number)}#preisvergleich', callback=self.parse)
+
+
     def parse(self, response):
-        excel_path = "C://Users//jinji//Desktop//Data Science//Programming Projects//webscrapy//data files//testdata_pzn.xlsx"
-        df = pd.read_excel(excel_path)
+        # Extract the price using the provided CSS selector
+        price = response.css('#arzneidetails > table.comparemed > tbody > tr:nth-child(1) > td.price::text').get()
 
-        for index, row in df.iterrows():
-            if pd.isna(row['PZN']):
-                search_term = row['Arzneimittelbezeichnung']
-                search_url = f"https://www.dkv.com/gesundheit-arzneimittel-preis-vergleich.html?start=1&init=1&cat=handelsname&q={quote(search_term)}#preisvergleich"
+        # Update the DataFrame with the extracted price
+        number = response.meta['number']
+        row_index = self.df[self.df['PZN'] == number].index[0]
+        self.df.at[row_index, 'Price'] = price
 
-                # Follow the search URL to scrape results
-                yield scrapy.Request(url=search_url, callback=self.parse_search_results, meta={'pzn': row['PZN'], 'search_term': search_term})
-
-    def parse_search_results(self, response):
-        first_result_button_xpath = '/html/body/div[2]/div[4]/div/div/div/div/div/div[1]/form/button'
-        yield from response.follow_all(first_result_button_xpath, callback=self.parse_pzn)
-
-    def parse_pzn(self, response):
-    #    # Print the URL the spider is going to
-        self.logger.info(f"Going to URL: {response.url}")
-
-        # Extract the missing PZN from the new page
-        pzn_xpath = '/html/body/div[2]/div[4]/div/div/div/div/div[2]/div[2]/div[1]/p[1]/strong/following-sibling::text()'
-        pzn_value = response.xpath(pzn_xpath).get()
-
-        # Return the PZN value
-        yield {'pzn': pzn_value.strip() if pzn_value else None}
+        # Save the updated DataFrame back to the Excel file
+        self.df.to_excel('path/to/your/excel/file_updated.xlsx', index=False)
 
 
     ##functions i need
     # puts pzn into search bar and clicks on search
     # css path or xpath to price
     # add price to excel file
+
