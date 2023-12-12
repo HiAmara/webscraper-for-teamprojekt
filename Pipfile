@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 pandas = "*"
+fsspec = "*"
+openpyxl = "*"
+scrapy = "*"
 
 [dev-packages]
 
