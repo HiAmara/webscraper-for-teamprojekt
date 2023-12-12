@@ -6,6 +6,8 @@ import fsspec
 from urllib.parse import quote
 from scrapy.http import FormRequest
 
+excel_path = r'C:\Users\jinji\Desktop\Data Science\Programming Projects\webscrapy\data files\testdata_pzn.xlsx'
+
 #spider that can scrape the prices for pzn
 class PznscraperSpider(scrapy.Spider):
     name = "pznscraper"
@@ -14,7 +16,6 @@ class PznscraperSpider(scrapy.Spider):
     #go to the url of each pzn that contains the price
     def start_requests(self):
         # Load Excel data
-        excel_path = r'C:\Users\jinji\Desktop\Data Science\Programming Projects\webscrapy\data files\testdata_pzn.xlsx'
         df = pd.read_excel(excel_path)
 
         # Iterate through PZN column and generate url requests
@@ -39,7 +40,6 @@ class PznscraperSpider(scrapy.Spider):
     #adds price to excel file
     def update_excel(self, pzn_number, price):
         # Load Excel data
-        excel_path = r'C:\Users\jinji\Desktop\Data Science\Programming Projects\webscrapy\data files\testdata_pzn.xlsx'
         df = pd.read_excel(excel_path)
 
         # Update the second column with the price
