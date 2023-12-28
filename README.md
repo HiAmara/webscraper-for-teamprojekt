@@ -24,7 +24,7 @@ Adjust the excel path variable inside the spider pznscraper.py
 
 Navigate to the project directory and then to the subfolder pharmnumbersscraper (`cd pharmnumbersscraper`)
 
-Execute the spider with the following command: `scrapy crawl your_spider`
+Execute the spider with the following command: `scrapy crawl pznscraper`
 #
 
 
