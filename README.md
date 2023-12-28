@@ -31,6 +31,8 @@ Execute the spider with the following command: `scrapy crawl your_spider`
 **Spider Configuration**
 
 It's possible to scrape items other than price if you find suitable css selectors.
+
+You can easily try selectors using the scrapy shell.
 #
 
 **Data Format**
