@@ -37,9 +37,9 @@ You can easily try selectors using the scrapy shell.
 
 **Data Format**
 
-The pzn numbers are inside an .xlsx file and the prices will be added to that same file.
+The pzn numbers are inside an .xlsx file (scraper uses the file called "test_pzn") and the prices will be added to that same file.
 
-The format is not ideal, i used excel formulas to fix this after the scrape --> see the excel sheet in data folder
+The format is not ideal, i used excel formulas to fix this after the scrape --> see the excel sheet "html_remover" in data folder
 #
 
 
