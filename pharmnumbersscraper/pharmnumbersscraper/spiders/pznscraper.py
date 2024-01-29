@@ -6,7 +6,7 @@ import fsspec
 from urllib.parse import quote
 from scrapy.http import FormRequest
 
-excel_path = r'C:\Users\jinji\Desktop\Data Science\Programming Projects\webscrapy\data files\testdata_pzn.xlsx'
+excel_path = r'C:\Users\jinji\Desktop\Data Science\Programming Projects\webscraper-for-teamprojekt\data files\example.xlsx'
 
 #spider that can scrape the prices for pzn
 class PznscraperSpider(scrapy.Spider):
