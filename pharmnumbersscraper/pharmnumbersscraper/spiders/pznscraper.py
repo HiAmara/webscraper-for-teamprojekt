@@ -1,7 +1,5 @@
 import scrapy
 import pandas as pd
-import openpyxl
-import fsspec
 
 from urllib.parse import quote
 from scrapy.http import FormRequest
